@@ -21,12 +21,14 @@ namespace WhatsNewInUnity
             }
             else
             {
+                Console.WriteLine("[" + DateTime.Now + "] Starting...");
                 string[] lines = File.ReadAllLines("auth.txt");
                 Auth.SetUserCredentials(lines[0], lines[1], lines[2], lines[3]);
 
                 var web = new HtmlWeb();
                 string url = "https://unity3d.com/unity/whats-new";
-                
+
+                Console.WriteLine("[" + DateTime.Now + "] Beginning loop.");
                 while (true)
                 {
                     var doc = web.Load(url);
