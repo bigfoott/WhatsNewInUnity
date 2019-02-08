@@ -31,7 +31,16 @@ namespace WhatsNewInUnity
                 Console.WriteLine("[" + DateTime.Now + "] Beginning loop.");
                 while (true)
                 {
-                    var doc = web.Load(url);
+                    
+                    HtmlDocument doc = null;
+                    try
+                    {
+                        doc = web.Load(url);
+                    }
+                    catch
+                    {
+                        continue;
+                    }
                     string ver = doc.DocumentNode.SelectSingleNode("//h1").InnerText;
                     if (!File.Exists("version.txt")) File.WriteAllText("version.txt", ver);
                     if (File.ReadAllText("version.txt") != ver)
@@ -40,7 +49,6 @@ namespace WhatsNewInUnity
                         Console.WriteLine("[" + DateTime.Now + "] Tweeted update " + ver);
                         File.WriteAllText("version.txt", ver);
                     }
-
                     Thread.Sleep(600000); // 10 minutes
                 }
             }
