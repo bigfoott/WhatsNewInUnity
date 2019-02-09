@@ -31,10 +31,13 @@ namespace WhatsNewInUnity
                 string url = "https://unity3d.com/unity/whats-new";
 
                 Console.WriteLine("[" + DateTime.Now + "] Beginning loop.");
+                bool firstrun = true;
                 while (true)
                 {
-                    Thread.Sleep(600000); // 10 minutes
-
+                    if (!firstrun)
+                        Thread.Sleep(600000); // 10 minutes
+                    firstrun = false;
+                    
                     HtmlDocument doc = null;
                     try
                     {
