@@ -76,7 +76,15 @@ namespace WhatsNewInUnity
                         if (!File.Exists("version-alphabeta.txt")) File.WriteAllText("version-alphabeta.txt", ver);
                         if (File.ReadAllText("version-alphabeta.txt") != ver)
                         {
-                            Tweet.PublishTweet(ver + " is out!\n\nView the changelog here: " + url + "/" + ver.Split(' ')[1]);
+                            string _url = "https://unity3d.com/";
+
+                            if (ver.Contains('b'))
+                                _url += "unity/beta/" + ver.Split('.')[0] + "." + ver.Split('.')[1];
+                            else if (ver.Contains('a'))
+                                _url += "alpha/" + ver.Split('.')[0] + "." + ver.Split('.')[1];
+                            _url += "#release-notes";
+
+                            Tweet.PublishTweet(ver + " is out!\n\nView the changelog here: " + _url);
                             Console.WriteLine("[" + DateTime.Now + "] Tweeted update " + ver);
                             File.WriteAllText("version-alphabeta.txt", ver);
                         }
